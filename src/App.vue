@@ -7,7 +7,7 @@
         :enemy-punctuation="enemyPunctuation"
         :number-moves="numberMoves"
       />
-      <knucklebones-game />
+      <knucklebones-game @move-made="moveMade" />
       <the-footer />
     </v-main>
   </v-app>
@@ -37,6 +37,16 @@ export default defineComponent({
       numberMoves: 0,
     };
   },
+  methods: {
+    moveMade(diceValue: number, lambTurn: boolean) {
+      if (lambTurn) {
+        this.lambPunctuation += diceValue;
+      } else {
+        this.enemyPunctuation += diceValue;
+      }
+      this.numberMoves++;
+    },
+  },
 });
 </script>
 
@@ -44,5 +54,6 @@ export default defineComponent({
 .app {
   background-color: #1d3557;
   color: #f1faee;
+  user-select: none;
 }
 </style>
